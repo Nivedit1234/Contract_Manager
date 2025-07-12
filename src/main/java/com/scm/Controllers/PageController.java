@@ -11,7 +11,15 @@ import org.thymeleaf.engine.AttributeName;
 
 	@Controller
 	public class PageController {
-	  @RequestMapping("/home")
+	  
+		@RequestMapping("/")
+	  public String basePage(Model model) {
+	       System.out.println("Home page handler");
+	       model.addAttribute("name","Nivedit Indras");
+		  return "home";
+	  }
+		
+		@RequestMapping("/home")
 	  public String home(Model model) {
 	       System.out.println("Home page handler");
 	       model.addAttribute("name","Nivedit Indras");
@@ -25,10 +33,28 @@ import org.thymeleaf.engine.AttributeName;
 	  }
 
 
-	    @RequestMapping("/services")
+	  @RequestMapping("/services")
 	  public String services(Model model) {
 	       System.out.println("services page handler");
 		  return "services";
+	  }
+
+	  @RequestMapping("/register")
+	  public String register(Model model) {
+	       System.out.println("register page handler");
+		  return "register";
+	  }
+
+	   @RequestMapping("/login")
+	  public String login(Model model) {
+	       System.out.println("login page handler");
+		  return "login";
+	  }
+
+	   @RequestMapping("/contact")
+	  public String contact(Model model) {
+	       System.out.println("contact page handler");
+		  return "contact";
 	  }
 	}
 
