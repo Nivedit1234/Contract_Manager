@@ -1,3 +1,4 @@
+
 {
   "name": "scm",
   "version": "1.0.0",
@@ -5,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",  
-    "tailwind": "npx @tailwindcss/cli -i ./src/main/resources/tailwind/input.css -o ./src/main/resources/static/css/output.css --watch"
+    "tailwind": "tailwindcss -i ./src/main/resources/tailwind/input.css -o ./src/main/resources/static/css/output.css --watch"
+
+
 
   },
   "keywords": [],
@@ -21,3 +24,4 @@
     "@tailwindcss/cli": "^4.1.11"
   }
 }
+
