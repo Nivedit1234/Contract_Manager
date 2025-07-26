@@ -4,24 +4,29 @@
     <title>Signup</title>
   </head>
   <body class="bg-gray-900 min-h-screen">
-    <!-- Wrapper: Centered using flex and with padding to avoid navbar overlap -->
-    <div id="content" class="flex justify-center items-center pt-24 px-4 min-h-screen">
-      <div class="w-full max-w-xl">
-        <!-- Card -->
-        <div
-          class="p-6 border-t-[10px] border-blue-700 bg-gray-800 rounded-xl shadow hover:bg-gray-700"
-        >
-        <!-- message -->
-          <div th:replace="~{message::messagebox}"></div>
-          <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">
-            Signup Here
-          </h5>
-          <p class="font-normal text-gray-400">
-            Start managing contacts on cloud ...
-          </p>
+
+    <!-- Page wrapper with centered content -->
+    <div id="content" class="flex justify-center pt-32 px-4 min-h-screen">
+
+      <!-- Card container (message + form in one) -->
+      <!-- Card container -->
+<div class="p-6 border-t-[10px] border-blue-700 bg-gray-800 rounded-xl shadow hover:bg-gray-700 space-y-5">
+
+  <!-- Title -->
+  <div>
+    <h5 class="text-2xl font-bold tracking-tight text-white">Signup Here</h5>
+    <p class="font-normal text-gray-400">Start managing contacts on cloud ...</p>
+  </div>
+
+  <!-- ✅ Wrapped message box so it's on top, not side-by-side -->
+  <div class="w-full">
+    <div data-th-replace="~{message::messagebox}"></div>
+  </div>
+  
 
           <!-- Form -->
-          <form data-th-object="${userForm}" data-th-action="@{'/do-register'}"method="post" class="mt-5 space-y-4" novalidate>
+          <form data-th-object="${userForm}" data-th-action="@{'/do-register'}" method="post" class="space-y-4" novalidate>
+
             <!-- Name -->
             <div>
               <label for="name" class="block mb-1 text-sm font-medium text-white">Name</label>
@@ -29,12 +34,10 @@
                 type="text"
                 id="name"
                 data-th-field="*{name}"
-                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring-blue-500 focus:border-blue-500"
+                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Enter your name"
                 required
               />
-              <p class="text-red-600 px-1 py-2" data-th-if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-
             </div>
 
             <!-- Email -->
@@ -44,12 +47,10 @@
                 type="email"
                 id="email"
                 data-th-field="*{email}"                
-                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring-blue-500 focus:border-blue-500"
+                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
                 placeholder="name@example.com"
                 required
               />
-              <p class="text-red-600 px-1 py-2" data-th-if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
-             
             </div>
 
             <!-- Password -->
@@ -59,10 +60,9 @@
                 type="password"
                 id="password"
                 data-th-field="*{password}"
-                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring-blue-500 focus:border-blue-500"
+                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
                 required
               />
-              <p class="text-red-600 px-1 py-2" data-th-if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
             </div>
 
             <!-- Phone -->
@@ -72,10 +72,9 @@
                 type="text"
                 id="phone"
                 data-th-field="*{phoneNumber}"
-                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring-blue-500 focus:border-blue-500"
+                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
                 required
               />
-              <p class="text-red-600 px-1 py-2" data-th-if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></p>
             </div>
 
             <!-- About -->
@@ -85,14 +84,13 @@
                 id="about"
                 data-th-field="*{about}"
                 rows="4"
-                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring-blue-500 focus:border-blue-500"
+                class="w-full p-2.5 rounded-lg bg-gray-700 border border-gray-600 placeholder-gray-400 text-white text-sm focus:ring focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Write here..."
               ></textarea>
-              <p class="text-red-600 px-1 py-2" data-th-if="${#fields.hasErrors('about')}" th:errors="*{about}"></p>
             </div>
 
             <!-- Buttons -->
-            <div class="flex justify-center space-x-3">
+            <div class="flex justify-center space-x-3 pt-2">
               <button
                 type="submit"
                 class="px-4 py-2 rounded bg-blue-800 hover:bg-blue-700 text-white"
@@ -101,14 +99,16 @@
               </button>
               <button
                 type="reset"
-                class="px-4 py-2 rounded bg-orange-800 hover:bg-orange-700 text-black"
+                class="px-4 py-2 rounded bg-orange-800 hover:bg-orange-700 text-white"
               >
                 Reset
               </button>
             </div>
+
           </form>
         </div>
       </div>
+
     </div>
 
     <script>

@@ -6,8 +6,11 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -26,6 +29,7 @@ import lombok.Setter;
 @Builder
 public class User {
      @Id 
+     @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int userId;
      @Column(name="user_name",nullable=false)
      private String name;
@@ -44,7 +48,7 @@ public class User {
      private boolean phoneVerified=false;
 
     //User signed in using Google,Facebook,Twitter,LinkedIn,Github
-    @Enumerated  
+    @Enumerated(EnumType.STRING) 
     private Providers provider=Providers.SELF;
       private String providerUserId;
       
