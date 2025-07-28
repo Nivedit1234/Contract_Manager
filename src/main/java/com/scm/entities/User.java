@@ -1,10 +1,17 @@
 package com.scm.entities;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -27,7 +34,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User {
+
+//spring recommends making userDetails for all methods of users
+// so we make our User class implements UserDetails so we can its obj(User) in its place;
+public class User implements UserDetails {
      @Id 
      @GeneratedValue(strategy = GenerationType.IDENTITY)
      private int userId;
@@ -43,7 +53,7 @@ public class User {
      private String phoneNumber;
 
      //information
-     private boolean enable=false;
+     private boolean enable=true;
      private boolean emailVerified=false;
      private boolean phoneVerified=false;
 
@@ -65,6 +75,52 @@ public class User {
       
     @OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY,orphanRemoval=true )
      private List<Contact> contacts=new ArrayList<>();
+
+	@ElementCollection(fetch=FetchType.EAGER)
+    public ArrayList<String> roleList=new ArrayList<>();
+    @Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection <SimpleGrantedAuthority> roles=roleList.stream().map(role-> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+		return roles;
+	}
+     //for this project username is email so this.email means this class email
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+	
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	/**
+	 * Indicates whether the user is locked or unlocked. A locked user cannot be
+	 * authenticated.
+	 * @return <code>true</code> if the user is not locked, <code>false</code> otherwise
+	 */
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	/**
+	 * Indicates whether the user's credentials (password) has expired. Expired
+	 * credentials prevent authentication.
+	 * @return <code>true</code> if the user's credentials are valid (ie non-expired),
+	 * <code>false</code> if no longer valid (ie expired)
+	 */
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	/**
+	 * Indicates whether the user is enabled or disabled. A disabled user cannot be
+	 * authenticated.
+	 * @return <code>true</code> if the user is enabled, <code>false</code> otherwise
+	 */
+
+public boolean isEnabled() {
+		return this.enable;
+	}
     
     
 }
